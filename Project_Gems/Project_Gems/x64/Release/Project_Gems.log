@@ -1,0 +1,11 @@
+﻿  Field.cpp
+C:\Users\Анастасия\source\repos\Project_Gems\Project_Gems\Field.cpp(67,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  GameProgress.cpp
+  main.cpp
+C:\Users\Анастасия\source\repos\Project_Gems\Project_Gems\Field.cpp(209,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Создание кода
+  93 of 93 functions (100.0%) were compiled.
+    89 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  Project_Gems.vcxproj -> C:\Users\Анастасия\source\repos\Project_Gems\x64\Release\Project_Gems.exe
