@@ -17,7 +17,7 @@ void Repainting::DrawBonusTexture(std::shared_ptr<sf::RenderWindow> window, std:
 		window->display();
 	}
 
-	painter.setPosition(float(x * (field->GetGemSize() + field->GetIndent()) + field->GetStartPoint()), float(y * (field->GetGemSize() + field->GetIndent()) + field->GetStartPoint()));
+	painter.setPosition(field->GetPositionX(x), field->GetPositionY(y));
 
 	for (int i = 0; i < 40; i++) {
 		window->draw(painter);
