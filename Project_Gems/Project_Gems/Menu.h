@@ -21,7 +21,7 @@ class MyButton
 class Menu
 {
 public:
-	enum {
+	enum const{
 		PLAYGAME = 1,
 		RULES = 2,
 		EXIT = 3,
