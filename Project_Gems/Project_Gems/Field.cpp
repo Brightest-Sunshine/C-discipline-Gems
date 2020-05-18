@@ -16,10 +16,17 @@ void Field::InitField()
 	}
 }
 
+void Field::DoTransparent(int x, int y) {
+	this->_gemsArray[x][y] = TRANSPARENT;
+}
+
+void Field::ChangeColor(int x, int y, int color) {
+	_gemsArray[x][y] = color;
+}
 
 void Field::ClickOnGem(int i, int j)
 {
-	_gemsArray[i][j] = _gemsArray[i][j] + DIFFERENCE;
+	_gemsArray[i][j] = _gemsArray[i][j] + 10;
 }
 
 point Field::TransleteCoordinat(int x, int y, int x0, int y0)
@@ -32,7 +39,7 @@ point Field::TransleteCoordinat(int x, int y, int x0, int y0)
 
 void Field::CancelClick(int i, int j)
 {
-	_gemsArray[i][j] = _gemsArray[i][j] - DIFFERENCE;
+	_gemsArray[i][j] = _gemsArray[i][j] - 10;
 }
 
 int Field::CheckNeighbors(point first, point second)
@@ -53,8 +60,8 @@ void Field::Swap(int x1, int y1, int x2, int y2)
 
 void Field::RemoveClick(int x1, int y1, int x2, int y2)
 {
-	_gemsArray[x1][y1] = _gemsArray[x1][y1] - DIFFERENCE;
-	_gemsArray[x2][y2] = _gemsArray[x2][y2] - DIFFERENCE;
+	_gemsArray[x1][y1] = _gemsArray[x1][y1] - 10;
+	_gemsArray[x2][y2] = _gemsArray[x2][y2] - 10;
 }
 
 void Field::ReplaceGems(point coordinate, int count, RenderWindow& window, Text text)
