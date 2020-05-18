@@ -32,6 +32,8 @@ public:
 	int GetStartPoint() { return _startPoint; }
 	int GetIndent() { return _indent; }
 	void DoTransparent(int x, int y);
+	float GetPositionX(int x);
+	float GetPositionY(int y);
 	int CheckTableCell(int x, int y) { return _gemsArray[x][y]; }
 	void ChangeColor(int x, int y, int color);
 	IntRect GetSprite(int Color);
