@@ -15,13 +15,13 @@ void Bomb::DrawBonusTexture(std::shared_ptr <sf::RenderWindow> window, std::shar
 	bomb.setTextureRect(IntRect(448, 0, 64, 64));
 	empty.setTextureRect(IntRect(0, 0, 64, 64));
 
-	empty.setPosition(float(x * (field->GetGemSize() + field->GetIndent()) + field->GetStartPoint()), float(y * (field->GetGemSize() + field->GetIndent()) + field->GetStartPoint()));
+	empty.setPosition(field->GetPositionX(x), field->GetPositionY(y));
 
 	field->DoTransparent(x, y);
 	window->draw(empty);
 	window->display();
 
-	bomb.setPosition(float(x * (field->GetGemSize() + field->GetIndent()) + field->GetStartPoint()), float(y * (field->GetGemSize() + field->GetIndent()) + field->GetStartPoint()));
+	bomb.setPosition(field->GetPositionX(x), field->GetPositionY(y));
 	
 	for (int i = 0; i < 40; i++) {
 		window->draw(empty);
@@ -49,5 +49,4 @@ int Bomb::Actuation(std::shared_ptr<Field> field)
 	}
 	return 0;
 }
-
 
