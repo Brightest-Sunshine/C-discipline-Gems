@@ -1,6 +1,7 @@
 #include "Field.h"
 #include <stdlib.h>
 
+
 IntRect Field::GetSprite(int Color)
 {
 	switch (Color) {
@@ -65,7 +66,7 @@ void Field::DrawField(RenderWindow& window)
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
 			gem.setTextureRect(this->GetSprite(_gemsArray[i][j]));
-			gem.setPosition(float(i * (_gemSize + _indent) + _startPoint), float(j * (_gemSize + _indent) + _startPoint));
+			gem.setPosition(this->GetPositionX(i), this->GetPositionY(j));
 			window.draw(gem);
 		}
 	}
@@ -91,10 +92,10 @@ void Field::MoveGems(int cases, int x1, int y1, int x2, int y2, RenderWindow& wi
 	{
 	case 1:
 		do {
-			_gemsArray[x1][y1] = TRANSPARENT;
-			_gemsArray[x2][y2] = TRANSPARENT;
-			gem1.setPosition(float(x1 * (_gemSize + _indent) + _startPoint + dx), float(y1 * (_gemSize + _indent) + _startPoint));
-			gem2.setPosition(float(x2 * (_gemSize + _indent) + _startPoint - dx), float(y2 * (_gemSize + _indent) + _startPoint));
+			this->DoTransparent(x1, y1);
+			this->DoTransparent(x2, y2);
+			gem1.setPosition((this->GetPositionX(x1) + dx), this->GetPositionY(y1));
+			gem2.setPosition((this->GetPositionX(x2) - dx), this->GetPositionY(y2));
 			dx += (x2 - x1) * 5;
 			window.clear();
 			window.draw(background);
@@ -103,17 +104,17 @@ void Field::MoveGems(int cases, int x1, int y1, int x2, int y2, RenderWindow& wi
 			window.draw(gem2);
 			window.draw(text);
 			window.display();
-		} while (float(x1 * (_gemSize + _indent) + _startPoint + dx) != float(x2 * (_gemSize + _indent) + _startPoint));
+		} while ((this->GetPositionX(x1) + dx) != (this->GetPositionX(x2)));
 		_gemsArray[x1][y1] = tmp1;
 		_gemsArray[x2][y2] = tmp2;
 		break;
 
 	case 2:
 		do {
-			_gemsArray[x1][y1] = TRANSPARENT;
-			_gemsArray[x2][y2] = TRANSPARENT;
-			gem1.setPosition(float(x1 * (_gemSize + _indent) + _startPoint), float(y1 * (_gemSize + _indent) + _startPoint + dy));
-			gem2.setPosition(float(x2 * (_gemSize + _indent) + _startPoint), float(y2 * (_gemSize + _indent) + _startPoint - dy));
+			this->DoTransparent(x1, y1);
+			this->DoTransparent(x2, y2);
+			gem1.setPosition((this->GetPositionX(x1)), (this->GetPositionY(y1) + dy));
+			gem2.setPosition((this->GetPositionX(x2)), (this->GetPositionY(y2) - dy));
 			dy += (y2 - y1) * 5;
 			window.clear();
 			window.draw(background);
@@ -122,7 +123,7 @@ void Field::MoveGems(int cases, int x1, int y1, int x2, int y2, RenderWindow& wi
 			window.draw(gem2);
 			window.draw(text);
 			window.display();
-		} while (float(y1 * (_gemSize + _indent) + _startPoint + dy) != float(y2 * (_gemSize + _indent) + _startPoint));
+		} while ((this->GetPositionY(y1) + dy) != this->GetPositionY(y2));
 		_gemsArray[x1][y1] = tmp1;
 		_gemsArray[x2][y2] = tmp2;
 		break;
@@ -158,7 +159,7 @@ void Field::FallOfGems(int x1, int y1, int x2, int y2, int countGems, RenderWind
 
 	do {
 		for (int j = y1; j > y1 - countGems; j--) {
-			gems[j].setPosition(float(x1 * (_gemSize + _indent) + _startPoint), float(j * (_gemSize + _indent) + _startPoint + dy));
+			gems[j].setPosition(this->GetPositionX(x1), this->GetPositionY(j) + dy);
 		}
 		dy += 7;
 		window.clear();
@@ -170,7 +171,7 @@ void Field::FallOfGems(int x1, int y1, int x2, int y2, int countGems, RenderWind
 		window.draw(text);
 		window.display();
 
-	} while (float(y1 * (_gemSize + _indent) + _startPoint + dy) <= float(y2 * (_gemSize + _indent) + _startPoint));
+	} while ((this->GetPositionY(y1) + dy) <= this->GetPositionY(y2));
 
 
 	for (int j = y2, i = y1; i >= 0; j--, i--) {
@@ -199,7 +200,7 @@ void Field::NewGems(int x1, int countZero, RenderWindow& window, Text text)
 
 	do {
 		for (int i = countZero - 1; i >= 0; i--) {
-			newG[i].setPosition(float(x1 * (_gemSize + _indent) + _startPoint), float((i - countZero) * (_gemSize + _indent) + _startPoint + dy));
+			newG[i].setPosition(this->GetPositionX(x1), this->GetPositionX(i - countZero) + dy);
 		}
 		dy += 10;
 		window.clear();
@@ -210,7 +211,7 @@ void Field::NewGems(int x1, int countZero, RenderWindow& window, Text text)
 		}
 		window.draw(text);
 		window.display();
-	} while (float(-1 * (_gemSize + _indent) + _startPoint + dy) <= float((countZero - 1) * (_gemSize + _indent) + _startPoint));
+	} while ((this->GetPositionX(-1) + dy) <= this->GetPositionX(countZero - 1));
 
 	for (int i = countZero - 1; i >= 0; i--) {
 		_gemsArray[x1][i] = newGems[i];
