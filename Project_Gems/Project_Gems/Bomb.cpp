@@ -15,13 +15,13 @@ void Bomb::DrawBonusTexture(std::shared_ptr <sf::RenderWindow> window, std::shar
 	bomb.setTextureRect(IntRect(448, 0, 64, 64));
 	empty.setTextureRect(IntRect(0, 0, 64, 64));
 
-	empty.setPosition(float(x * (field->_gemSize + field->_indent) + field->_startPoint), float(y * (field->_gemSize + field->_indent) + field->_startPoint));
+	empty.setPosition(float(x * (field->GetGemSize() + field->GetIndent()) + field->GetStartPoint()), float(y * (field->GetGemSize() + field->GetIndent()) + field->GetStartPoint()));
 
-	field->_gemsArray[x][y] = field->TRANSPARENT;
+	field->DoTransparent(x, y);
 	window->draw(empty);
 	window->display();
 
-	bomb.setPosition(float(x * (field->_gemSize + field->_indent) + field->_startPoint), float(y * (field->_gemSize + field->_indent) + field->_startPoint));
+	bomb.setPosition(float(x * (field->GetGemSize() + field->GetIndent()) + field->GetStartPoint()), float(y * (field->GetGemSize() + field->GetIndent()) + field->GetStartPoint()));
 	
 	for (int i = 0; i < 40; i++) {
 		window->draw(empty);
@@ -41,11 +41,13 @@ int Bomb::Actuation(std::shared_ptr<Field> field)
 		tmp_x = (x + tmp) / 2;
 		tmp = rand() % 7;
 		tmp_y = (y + tmp) / 2;
-		if (field->_gemsArray[tmp_x][tmp_y] != field->TRANSPARENT)
-			field->_gemsArray[tmp_x][tmp_y] = field->TRANSPARENT;
+		
+		if (field->CheckTableCell(tmp_x, tmp_y) != field->TRANSPARENT)
+			field->DoTransparent(tmp_x, tmp_y);
 		else
 			i--;
 	}
 	return 0;
 }
+
 
