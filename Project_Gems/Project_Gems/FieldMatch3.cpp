@@ -109,3 +109,4 @@ int Field::GetScore()
 {
 	return gameScore;
 }
+
