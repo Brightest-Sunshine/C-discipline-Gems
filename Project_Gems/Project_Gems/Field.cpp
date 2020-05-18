@@ -92,7 +92,7 @@ void Field::DeleteGems()
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
 			if (_gemsArray[i][j] < 0) {
-				_gemsArray[i][j] = TRANSPARENT;
+				this->DoTransparent(i, j);
 			}
 		}
 	}
