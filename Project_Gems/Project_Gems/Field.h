@@ -5,8 +5,14 @@ using namespace sf;
 #pragma once
 class Field
 {
+private:
+	int  _gemsArray[8][8]; // array with gems
+	int const _gemSize = 64; 
+	int const _indent = 6;
+	int const _startPoint = 60;
+
 public:
-	enum Color : int {
+	enum Color : int const {
 		RED = 1, DARKRED = 11,
 		ORANG = 2, DARKORANG = 12,
 		YELLOW = 3, DARKYELLOW = 13,
@@ -15,16 +21,19 @@ public:
 		PURPLE = 6, DARKPURPLE = 16,
 		GRAY = 7, DARKGRAY = 17,
 		TRANSPARENT = 0, 
-		DIFFERENCE = 10	
+		DIFFERENCE = 10
 	};
 	
-	int _gemsArray[8][8]; // array with gems
-	int const _gemSize = 64; 
-	int const _indent = 6;
-	int const _startPoint = 60;
+	
 
 	Field(int gemsArray[8][8]);// constructor
 	~Field(); // destructor
+	int GetGemSize() { return _gemSize; }
+	int GetStartPoint() { return _startPoint; }
+	int GetIndent() { return _indent; }
+	void DoTransparent(int x, int y);
+	int CheckTableCell(int x, int y) { return _gemsArray[x][y]; }
+	void ChangeColor(int x, int y, int color);
 	IntRect GetSprite(int Color);
 	void InitField(); // fill in the gems field
 	void DrawField(RenderWindow& window); // draw the resulting gems array
