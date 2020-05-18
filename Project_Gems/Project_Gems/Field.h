@@ -15,8 +15,7 @@ public:
 		PURPLE = 6, DARKPURPLE = 16,
 		GRAY = 7, DARKGRAY = 17,
 		TRANSPARENT = 0, 
-		BOMB = 8,
-		PAINTER = 9
+		DIFFERENCE = 10	
 	};
 	
 	int _gemsArray[8][8]; // array with gems
